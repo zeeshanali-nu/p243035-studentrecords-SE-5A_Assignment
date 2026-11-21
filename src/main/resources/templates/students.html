@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Records</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #263238;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        input, button, a {
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .add {
+            background: #16a34a;
+            color: white;
+            text-decoration: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #263b60;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f2f2f2;
+        }
+
+        .action {
+            color: #2563eb;
+            text-decoration: none;
+            margin-right: 8px;
+        }
+
+        .delete {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 7px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Student Records Management System</h1>
+
+    <div class="top">
+
+        <form action="/students" method="get">
+            <input type="text"
+                   name="name"
+                   placeholder="Search student by name"
+                   th:value="${searchName}">
+
+            <button type="submit">Search</button>
+        </form>
+
+        <a class="add" href="/students/new">
+            + Add New Student
+        </a>
+
+    </div>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Registration No</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>CGPA</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr th:each="student : ${students}">
+
+                <td th:text="${student.id}"></td>
+
+                <td th:text="${student.regNo}"></td>
+
+                <td th:text="${student.name}"></td>
+
+                <td th:text="${student.department}"></td>
+
+                <td th:text="${student.cgpa}"></td>
+
+                <td>
+                    <a class="action"
+                       th:href="@{/students/{regNo}(regNo=${student.regNo})}">
+                        View
+                    </a>
+
+                    <a class="action"
+                       th:href="@{/students/{regNo}/edit(regNo=${student.regNo})}">
+                        Edit
+                    </a>
+
+                    <form th:action="@{/students/{regNo}/delete(regNo=${student.regNo})}"
+                          method="post"
+                          style="display:inline">
+
+                        <button class="delete" type="submit">
+                            Delete
+                        </button>
+
+                    </form>
+                </td>
+
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(students)}">
+                <td colspan="6" style="text-align:center">
+                    No students found.
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+</html>

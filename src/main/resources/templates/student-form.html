@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Student Form</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 40px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #263b60;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: #16a34a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #2563eb;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1 th:text="${student.id == 0 ? 'Add New Student' : 'Edit Student'}">
+        Student Form
+    </h1>
+
+    <form th:action="${student.id == 0 ? '/students' : '/students/' + student.regNo + '/update'}"
+          th:object="${student}"
+          method="post">
+
+        <label>Registration Number</label>
+
+        <input type="text"
+               th:field="*{regNo}"
+               placeholder="REG-2026-009"
+               required
+               th:readonly="${student.id != 0}">
+
+        <label>Student Name</label>
+
+        <input type="text"
+               th:field="*{name}"
+               placeholder="Enter student name"
+               required>
+
+        <label>Department</label>
+
+        <input type="text"
+               th:field="*{department}"
+               placeholder="Enter department"
+               required>
+
+        <label>CGPA</label>
+
+        <input type="number"
+               th:field="*{cgpa}"
+               step="0.01"
+               min="0"
+               max="4"
+               placeholder="Enter CGPA"
+               required>
+
+        <button type="submit">Save Student</button>
+
+    </form>
+
+    <a href="/students">Back to Student List</a>
+
+</div>
+
+</body>
+</html>

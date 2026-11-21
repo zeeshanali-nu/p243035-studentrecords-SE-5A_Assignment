@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Student Details</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 40px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #263b60;
+        }
+
+        .detail {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Student Details</h1>
+
+    <div class="detail">
+        <span class="label">Student ID:</span>
+        <span th:text="${student.id}"></span>
+    </div>
+
+    <div class="detail">
+        <span class="label">Registration Number:</span>
+        <span th:text="${student.regNo}"></span>
+    </div>
+
+    <div class="detail">
+        <span class="label">Name:</span>
+        <span th:text="${student.name}"></span>
+    </div>
+
+    <div class="detail">
+        <span class="label">Department:</span>
+        <span th:text="${student.department}"></span>
+    </div>
+
+    <div class="detail">
+        <span class="label">CGPA:</span>
+        <span th:text="${student.cgpa}"></span>
+    </div>
+
+    <a href="/students">Back to Student List</a>
+
+</div>
+
+</body>
+</html>
